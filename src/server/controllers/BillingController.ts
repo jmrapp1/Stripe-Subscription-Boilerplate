@@ -16,6 +16,7 @@ import AuthMiddleware from '../middlewares/AuthMiddleware';
 import HttpUtils from '../util/HttpUtils';
 import StripeService from '../services/StripeService';
 import BillingCycleService from '../services/BillingCycleService';
+import SubscriptionService from '../services/SubscriptionService';
 
 @JsonController('/billing')
 export default class BillingController extends BaseController {
@@ -23,8 +24,8 @@ export default class BillingController extends BaseController {
     @Inject(type => StripeService)
     stripeService: StripeService;
 
-    @Inject(type => AppService)
-    appService: AppService;
+    @Inject(type => SubscriptionService)
+    appService: SubscriptionService;
 
     @Inject(type => BillingCycleService)
     billingCycleService: BillingCycleService;

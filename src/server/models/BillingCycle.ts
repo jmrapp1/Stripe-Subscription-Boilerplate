@@ -1,5 +1,5 @@
 import * as mongoose from 'mongoose';
-import {AppDocument} from './App';
+import { SubscriptionDocument } from './Subscription';
 
 const billingChargeSchema = new mongoose.Schema({
     type: String,
@@ -24,7 +24,7 @@ const stripeChargeDataSchema = new mongoose.Schema({
 });
 
 export const billingCycleSchema = new mongoose.Schema({
-    app: {type: mongoose.Schema.Types.ObjectId, ref: 'App', index: true},
+    subscription: {type: mongoose.Schema.Types.ObjectId, ref: 'Subscription', index: true},
     charges: {type: [billingChargeSchema]},
     usage: {type: Number, default: 0},
     actualStartDate: {type: Date},
@@ -37,7 +37,7 @@ export const billingCycleSchema = new mongoose.Schema({
 
 export interface BillingCycleDocument extends mongoose.Document {
     _id: string;
-    app: AppDocument;
+    subscription: SubscriptionDocument;
     charges: {
         type: string,
         percentAddition: number,

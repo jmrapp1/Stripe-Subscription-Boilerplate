@@ -4,7 +4,7 @@ import DatabaseService from './DatabaseService';
 import DateUtils, {DATE_FULL_TIME_FORMAT} from '../../shared/utils/DateUtils';
 import BillingCycle, {BillingCycleDocument} from '../models/BillingCycle';
 import ServiceResponse from './response/ServiceResponse';
-import AppService from './AppService';
+import SubscriptionService from './SubscriptionService';
 import AddBillingCycleResource from '../../shared/resources/billing/AddBillingCycleResource';
 import MetricResource from '../../shared/resources/metric/MetricResource';
 import NumberUtils from '../../shared/utils/NumberUtils';
@@ -19,8 +19,8 @@ export default class BillingCycleService extends DatabaseService<BillingCycleDoc
 
     model = BillingCycle;
 
-    @Inject(type => AppService)
-    appService: AppService;
+    @Inject(type => SubscriptionService)
+    appService: SubscriptionService;
 
     @Inject(type => AwsService)
     awsService: AwsService;

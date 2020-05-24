@@ -1,19 +1,19 @@
 import * as moment from 'moment-timezone';
 
-export const TIME_FORMAT = 'YYYY-MM-DDTHH:mm:ss';
+export const DATE_FORMAT_FULL_FORMAT = 'YYYY-MM-DDTHH:mm:ss.SSSZ';
 export const SERVER_TZ = moment.tz.guess();
 
-export function now() {
-    return nowMoment().format(TIME_FORMAT);
+export function nowUtcString(format = DATE_FORMAT_FULL_FORMAT) {
+    return nowUtcMoment().format(format);
 }
 
-export function nowMoment() {
+export function nowUtcMoment() {
     return moment(moment.utc().toDate());
 }
 
 export default {
-    now,
-    nowMoment,
+    nowUtcString,
+    nowUtcMoment,
     SERVER_TZ,
-    TIME_FORMAT
+    DATE_FORMAT_FULL_FORMAT
 };
