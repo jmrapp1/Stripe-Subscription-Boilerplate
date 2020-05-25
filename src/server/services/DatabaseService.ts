@@ -2,13 +2,14 @@ import ServiceResponse from './response/ServiceResponse';
 import Logger from '../util/Logger';
 import * as mongoose from 'mongoose';
 import PagedServiceResponse from './response/PagedServiceResponse';
+import { Model } from "mongoose";
 
 export default class DatabaseService<T extends mongoose.Document> {
 
     /**
      * Represents the database model to be used
      */
-    model: any;
+    model: Model<T>;
     populate = [];
 
     /**
@@ -42,7 +43,7 @@ export default class DatabaseService<T extends mongoose.Document> {
      */
     findById(id, populate = this.populate): Promise<ServiceResponse<T>> {
         return this.promise((resolve, reject) => {
-            this.populateQuery(this.model.find({ _id: id }).limit(1), populate).exec((err, model) => {
+            this.populateQuery((this.model as any).find({ _id: id }).limit(1), populate).exec((err, model) => {
                 if (err && err !== undefined && err !== null) {
                     return reject(new ServiceResponse(err));
                 }
@@ -178,7 +179,7 @@ export default class DatabaseService<T extends mongoose.Document> {
      */
     deleteById(id): Promise<ServiceResponse<any>> {
         return this.promise((resolve, reject) =>
-            this.model.findOneAndRemove({ _id: id }, (err, model) => this.handleStandardResponse(resolve, reject, err, model))
+            this.model.findByIdAndRemove(id, (err, model) => this.handleStandardResponse(resolve, reject, err, model))
         );
     }
 
@@ -203,7 +204,7 @@ export default class DatabaseService<T extends mongoose.Document> {
      * @param {mongoose.Schema} model The database model
      * @returns {Promise<ServiceResponse<T extends mongoose.Document>>} The response with the update model
      */
-    save(model: mongoose.Schema): Promise<ServiceResponse<T>> {
+    save(model: mongoose.Document): Promise<ServiceResponse<T>> {
         return this.promise((resolve, reject) => {
             model.save(err => {
                 if (err && err !== undefined && err !== null) {

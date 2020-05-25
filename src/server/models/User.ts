@@ -1,6 +1,6 @@
 import * as bcrypt from 'bcryptjs';
 import * as mongoose from 'mongoose';
-import { IStripeUserDocument, stripeUserSchema } from './stripe/StripeUser';
+import { IStripeUserDocument } from './stripe/StripeUser';
 import MongooseUtils from '../util/MongooseUtils';
 
 export const userSchema = new mongoose.Schema({
@@ -29,7 +29,7 @@ export interface UserDocument extends mongoose.Document {
 }
 
 userSchema.pre('save', function (next) {
-    const user = this;
+    const user = this as any;
     if (!user.isModified('password')) {
         return next();
     }
@@ -69,7 +69,7 @@ userSchema.set('toJSON', {
     }
 });
 
-MongooseUtils.attachAuditMiddleware(stripeUserSchema);
+MongooseUtils.attachAuditMiddleware(userSchema);
 const User = mongoose.model<UserDocument>('User', userSchema, 'User');
 
 export default User;

@@ -1,6 +1,5 @@
 import * as mongoose from 'mongoose';
 import * as dotenv from 'dotenv';
-import Test from '../models/Test';
 
 
 export default class DatabaseSetup {
@@ -15,12 +14,7 @@ export default class DatabaseSetup {
     setupTestDb(callback) {
         dotenv.load({ path: '.env' });
         this.connectToDb(() => {
-            this.removeTestData(callback);
         }, process.env.MONGODB_TEST_URI);
-    }
-
-    removeTestData(callback) {
-        Test.remove({}).exec(() => callback());
     }
 
     connectToDb(callback, uri) {

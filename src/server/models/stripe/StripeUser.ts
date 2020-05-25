@@ -1,5 +1,4 @@
 import * as mongoose from 'mongoose';
-import {UserDocument} from '../User';
 import MongooseUtils from '../../util/MongooseUtils';
 import StripeSubscription, { IStripeSubscriptionDocument } from './StripeSubscription';
 

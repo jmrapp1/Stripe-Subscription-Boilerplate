@@ -52,7 +52,7 @@ export default class StripeBillingCycleService extends DatabaseService<IStripeBi
         for (const b of cycle.charges) {
             charges.push({ type: b.type, cost: b.usage });
         }
-        return new ServiceResponse(new StripeBillingChargeResource().init(charges));
+        return new ServiceResponse(/*new StripeBillingChargeResource().init(charges)*/);
     }
 
     async getPastSixBillingCycle(subId: string) {
