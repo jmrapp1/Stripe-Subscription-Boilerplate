@@ -14,8 +14,8 @@ import {
 import {Inject} from 'typedi';
 
 const bodyParser = require('body-parser');
-import BaseController from './BaseController';
-import StripeService from '../services/StripeService';
+import BaseController from '../BaseController';
+import StripeService from '../../services/stripe/StripeService';
 
 @JsonController('/stripe')
 export default class StripeController extends BaseController {
@@ -28,10 +28,10 @@ export default class StripeController extends BaseController {
     stripeHook(@Req() req: any, @Res() response: any, @Body() body) {
         const stripeSig = req.headers['stripe-signature'];
         if (!stripeSig || !body) return response.sendStatus(401);
-        return this.stripeService.handleStripeWebhook(body, stripeSig).then(
+        /*return this.stripeService.handleStripeWebhook(body, stripeSig).then(
             res => response.sendStatus(200),
             err => this.handleServiceError(response, err)
-        );
+        );*/
     }
 
 }

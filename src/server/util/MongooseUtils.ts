@@ -1,11 +1,11 @@
 import * as mongoose from 'mongoose';
-import DateUtils, { nowUtcString } from '../../shared/utils/DateUtils';
+import DateUtils, { getNowUtcString } from '../../shared/utils/DateUtils';
 
 export function attachAuditMiddleware(schema: mongoose.Schema) {
     schema.pre('save', function(next) {
         if (this._doc) {
             const doc = this._doc;
-            const now = DateUtils.nowUtcString();
+            const now = DateUtils.getNowUtcString();
             if (!doc.createdOn) {
                 doc.createdOn = now;
             }

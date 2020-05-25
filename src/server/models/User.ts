@@ -1,5 +1,7 @@
 import * as bcrypt from 'bcryptjs';
 import * as mongoose from 'mongoose';
+import { IStripeUserDocument, stripeUserSchema } from './stripe/StripeUser';
+import MongooseUtils from '../util/MongooseUtils';
 
 export const userSchema = new mongoose.Schema({
     username: { type: String, unique: true, lowercase: true },
@@ -8,6 +10,9 @@ export const userSchema = new mongoose.Schema({
     lastName: String,
     phone: String,
     password: String,
+    stripeUser: {type: mongoose.Schema.Types.ObjectId, ref: 'StripeUser'},
+    createdOn: { type: Date },
+    updatedOn: { type: Date }
 });
 
 export interface UserDocument extends mongoose.Document {
@@ -18,6 +23,9 @@ export interface UserDocument extends mongoose.Document {
     lastName: string;
     phone: string;
     password: string;
+    stripeUser: IStripeUserDocument;
+    createdOn: Date;
+    updatedOn: Date;
 }
 
 userSchema.pre('save', function (next) {
@@ -60,6 +68,8 @@ userSchema.set('toJSON', {
         return ret;
     }
 });
+
+MongooseUtils.attachAuditMiddleware(stripeUserSchema);
 const User = mongoose.model<UserDocument>('User', userSchema, 'User');
 
 export default User;

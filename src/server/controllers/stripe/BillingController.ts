@@ -11,12 +11,12 @@ import {
     UseBefore
 } from 'routing-controllers';
 import {Inject} from 'typedi';
-import BaseController from './BaseController';
-import AuthMiddleware from '../middlewares/AuthMiddleware';
-import HttpUtils from '../util/HttpUtils';
-import StripeService from '../services/StripeService';
-import BillingCycleService from '../services/BillingCycleService';
-import SubscriptionService from '../services/SubscriptionService';
+import BaseController from '../BaseController';
+import AuthMiddleware from '../../middlewares/AuthMiddleware';
+import HttpUtils from '../../util/HttpUtils';
+import StripeService from '../../services/stripe/StripeService';
+import StripeBillingCycleService from '../../services/stripe/StripeBillingCycleService';
+import StripeUserService from '../../services/stripe/StripeUserService';
 
 @JsonController('/billing')
 export default class BillingController extends BaseController {
@@ -24,11 +24,11 @@ export default class BillingController extends BaseController {
     @Inject(type => StripeService)
     stripeService: StripeService;
 
-    @Inject(type => SubscriptionService)
-    appService: SubscriptionService;
+    @Inject(type => StripeUserService)
+    appService: StripeUserService;
 
-    @Inject(type => BillingCycleService)
-    billingCycleService: BillingCycleService;
+    @Inject(type => StripeBillingCycleService)
+    billingCycleService: StripeBillingCycleService;
 
     /*@Post('/cycle')
     @UseBefore(AuthMiddleware)
@@ -41,7 +41,7 @@ export default class BillingController extends BaseController {
         );
     }*/
 
-    @Post('/payment/:id/plan')
+    /*@Post('/payment/:id/plan')
     @UseBefore(AuthMiddleware)
     createAppPlan(@Req() req: any, @Res() response: any, @Param('id') id: string) {
         const user = req.user;
@@ -92,6 +92,6 @@ export default class BillingController extends BaseController {
             res => response.status(200).json(HttpUtils.mappedResourceToJson(res.data, MetricMapper)),
             err => this.handleServiceError(response, err)
         );
-    }
+    }*/
 
 }

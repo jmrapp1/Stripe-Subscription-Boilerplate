@@ -1,4 +1,4 @@
-# Stripe Subscription Boilerplate
+# Stripe StripeSubscription Boilerplate
 
 ## Setup
 - `npm i`

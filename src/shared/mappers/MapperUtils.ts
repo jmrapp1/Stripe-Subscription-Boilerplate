@@ -1,26 +1,23 @@
 import UserRegisterMapper from './user/UserRegisterMapper';
-import TestMapper from './test/TestMapper';
 import UserLoginMapper from './user/UserLoginMapper';
 import JwtMapper from './user/JwtMapper';
-import GenericNameMapper from './generic/GenericNameMapper';
-import GenericResource from '../resources/test/GenericResource';
-import MyResource from '../resources/test/MyResource';
-
-const GenericResourceMapper = new GenericNameMapper('GenericResourceMapper', GenericResource);
-const MyResourceMapper = new GenericNameMapper('MyResourceMapper', MyResource, (key: string) => 'Please enter the value: ' + key);
+import StripeBillingChargeMapper from './stripe/StripeBillingChargeMapper';
+import StripeProductMapper from './stripe/StripeProductMapper';
+import StripeProductPlanMapper from './stripe/StripeProductPlanMapper';
+import ExampleProductPlanMapper from './product/ExampleProductPlanMapper';
+import ExampleProductMapper from './product/ExampleProductMapper';
 
 export const GenericMappers = {
-    GenericResourceMapper,
-    MyResourceMapper
 };
-
 const mappers = [
     UserRegisterMapper,
     UserLoginMapper,
     JwtMapper,
-    TestMapper,
-    GenericResourceMapper,
-    MyResourceMapper
+    StripeBillingChargeMapper,
+    StripeProductMapper,
+    StripeProductPlanMapper,
+    ExampleProductPlanMapper,
+    ExampleProductMapper
 ];
 
 export function buildFromMapper(mapperId: string, isArray: boolean, json) {
