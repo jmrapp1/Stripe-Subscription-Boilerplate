@@ -11,7 +11,7 @@ import StripeBillingCycleMappers from '../mappers/stripe/StripeBillingCycleMappe
 import ProductExampleMappers from '../mappers/ProductExampleMappers';
 import HttpUtils from '../util/HttpUtils';
 
-@JsonController('/product')
+@JsonController('/products')
 export default class ProductController extends BaseController {
 
     @Inject()

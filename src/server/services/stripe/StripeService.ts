@@ -15,7 +15,7 @@ import StripeSubscriptionService from './StripeSubscriptionService';
 
 dotenv.load({ path: '.env' });
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, { apiVersion: '2020-03-02'});
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, { apiVersion: '2020-03-02' });
 
 @Service()
 export default class StripeService {
@@ -311,6 +311,22 @@ export default class StripeService {
             });
         });
     }*/
+
+    async getProduct(stripeProductId: string): Promise<ServiceResponse<Stripe.Product>> {
+        try {
+            return new ServiceResponse(await stripe.products.retrieve(stripeProductId));
+        } catch (e) {
+            throw new ServiceResponse(`Could not find Stripe product with id '${stripeProductId}'`, 400);
+        }
+    }
+
+    async getProductPlan(stripePlanId: string): Promise<ServiceResponse<Stripe.Plan>> {
+        try {
+            return new ServiceResponse(await stripe.plans.retrieve(stripePlanId));
+        } catch (e) {
+            throw new ServiceResponse(`Could not find Stripe Plan with id '${stripePlanId}'`, 400);
+        }
+    }
 
     async createCustomer(name: string, metadata): Promise<ServiceResponse<Stripe.Customer>> {
         try {

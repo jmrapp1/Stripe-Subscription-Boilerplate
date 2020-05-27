@@ -21,13 +21,18 @@ export default class ProductExampleService extends DatabaseService<IProductExamp
         if (existingProd.data.length > 0) {
             throw new ServiceResponse('Product with that stripe product ID is already registered.', 400);
         }
-        return new ServiceResponse(await this.insert({
+
+        await this.stripeService.getProduct(stripeProductId);
+        for (const plan of plans) {
+            await this.stripeService.getProductPlan(plan.stripePlanId);
+        }
+        return await this.insert({
             name,
             description,
             stripeProductId,
             charges,
             plans
-        }));
+        });
     }
 
 }

@@ -125,10 +125,10 @@ export default class StripeBillingCycleService extends DatabaseService<IStripeBi
             endOfType = 'day';
         }
 
-        const now = DateUtils.getNowUtcMoment().endOf(endOfType);
-        const day = now.diff(billingStart, difType);
+        const now = DateUtils.getNowUtcMoment().endOf(endOfType as any);
+        const day = now.diff(billingStart, difType as any);
         const monthStart = billingEnd.clone().startOf(interval);
-        const dif = billingEnd.diff(monthStart, difType) + 1;
+        const dif = billingEnd.diff(monthStart, difType as any) + 1;
         return day / dif;
     }
 

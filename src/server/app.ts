@@ -12,6 +12,8 @@ import { Container } from 'typedi';
 import DatabaseSetup from './util/DatabaseSetup';
 import UserController from './controllers/UserController';
 import Logger from './util/Logger';
+import StripeController from './controllers/stripe/StripeController';
+import ProductController from './controllers/ProductController';
 
 useContainer(Container);
 
@@ -20,7 +22,7 @@ const express = require('express');
 const app = createExpressServer({
     cors: true,
     routePrefix: '/api',
-    controllers: [ UserController ]
+    controllers: [ UserController, ProductController ]
 });
 
 dotenv.load({ path: '.env' });

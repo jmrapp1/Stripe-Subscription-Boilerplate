@@ -40,7 +40,7 @@ export default class ServiceResponse<T> {
     }
 
     buildInternalServerError(): InternalServerError {
-        Logger.error(`An internal server error has occurred. Data: ${ JSON.stringify(this.data) }`);
+        Logger.critical(`An internal server error has occurred. Data: ${ JSON.stringify(this.data) }`);
         return new InternalServerError();
     }
 
