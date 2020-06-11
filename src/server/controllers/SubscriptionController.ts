@@ -1,4 +1,4 @@
-import { JsonController, Post, Res, } from 'routing-controllers';
+import { Get, JsonController, Post, Req, Res, UseBefore, } from 'routing-controllers';
 import { BuildResource } from '../decorators/BuildResource';
 import { Inject } from 'typedi';
 import BaseController from './BaseController';
@@ -10,12 +10,15 @@ import * as ProductExample from '../models/ProductExample';
 import StripeBillingCycleMappers from '../mappers/stripe/StripeBillingCycleMappers';
 import ProductExampleMappers from '../mappers/ProductExampleMappers';
 import HttpUtils from '../util/HttpUtils';
+import StripeSubscriptionService from '../services/stripe/StripeSubscriptionService';
+import OktaAuthMiddleware from '../middlewares/OktaAuthMiddleware';
 
-@JsonController('/products')
+@JsonController('/subscriptions')
 export default class ProductController extends BaseController {
 
     @Inject()
-    productService: ProductExampleService;
+    subService: StripeSubscriptionService;
+/*
 
     @Post('/register')
     register(@Res() response: any, @BuildResource(ExampleProductMapper) prodResource: ExampleProductResource) {
@@ -25,11 +28,12 @@ export default class ProductController extends BaseController {
             prodResource.description,
             prodResource.stripeProductId,
             prodResource.charges.map(StripeBillingCycleMappers.mapChargeResourceToEntity),
-            prodResource.plans.map(ProductExampleMappers.mapPlanResourceToEntity)
-        ).then(
-            res => response.status(200).json(HttpUtils.mappedResourceToJson(res.data, ExampleProductMapper)),
-            err => this.handleServiceError(response, err)
-        );
+            prodResource.plans.map(ProductExampleMappers.mapPlanResourceToEntity))
+            .then(
+                res => response.status(200).json(HttpUtils.mappedResourceToJson(res.data, ExampleProductMapper)),
+                err => this.handleServiceError(response, err)
+            );
     }
+*/
 
 }

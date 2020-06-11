@@ -7,7 +7,7 @@ class ExampleProductPlanMapper extends ResourceMapper {
     resourceType = ExampleProductPlanResource;
 
     build(data): ExampleProductPlanResource {
-        return new ExampleProductPlanResource().initExampleProduct(data.name, data.stripePlanId, data.interval, data.price, data.aggregationMode, data.usageType);
+        return new ExampleProductPlanResource().initExampleProduct(data.name, data.stripePlanId/*, data.interval, data.price, data.aggregationMode, data.usageType*/);
     }
 
 }

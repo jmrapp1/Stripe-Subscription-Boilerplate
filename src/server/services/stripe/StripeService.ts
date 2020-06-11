@@ -4,27 +4,12 @@ import Logger from '../../util/Logger';
 import Stripe from 'stripe';
 import DateUtils from '../../../shared/utils/DateUtils';
 import * as dotenv from 'dotenv';
-import SetPaymentMethodResource from '../../../shared/resources/stripe/SetPaymentMethodResource';
-import StripeUserService from './StripeUserService';
-import StripeBillingCycleService from './StripeBillingCycleService';
-import { StripeSubscriptionInterval } from '../../models/stripe/StripeSubscription';
 import HelperUtils from '../../../shared/utils/HelperUtils';
-import PaymentMethodResource from '../../../shared/resources/stripe/PaymentMethodResource';
-import PaymentMethodSearchResource from '../../../shared/resources/stripe/PaymentMethodSearchResource';
-import StripeSubscriptionService from './StripeSubscriptionService';
-
-dotenv.load({ path: '.env' });
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, { apiVersion: '2020-03-02' });
 
 @Service()
 export default class StripeService {
-
-    @Inject(type => StripeBillingCycleService)
-    billingCycleService: StripeBillingCycleService;
-
-    @Inject(type => StripeSubscriptionService)
-    subService: StripeSubscriptionService;
 
     /*async createBillingPlan(sub: SubscriptionDocument) {
             try {

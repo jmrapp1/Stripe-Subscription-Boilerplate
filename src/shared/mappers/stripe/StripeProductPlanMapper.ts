@@ -7,7 +7,7 @@ class StripeProductPlanMapper extends ResourceMapper {
     resourceType = StripeProductPlanResource;
 
     build(data): StripeProductPlanResource {
-        return new StripeProductPlanResource().init(data.stripePlanId, data.interval, data.price, data.aggregationMode, data.usageType);
+        return new StripeProductPlanResource().init(data.stripePlanId/*, data.interval, data.price, data.aggregationMode, data.usageType*/);
     }
 
 }

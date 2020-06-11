@@ -3,10 +3,10 @@ import StripeProductPlanResource from '../stripe/StripeProductPlanResource';
 
 export default class ExampleProductPlanResource extends StripeProductPlanResource {
 
-    name: string;
+    name = '';
 
-    initExampleProduct(name: string, stripePlanId: string, interval: "day" | "week" | "month" | "year", price: number, aggregationMode: string, usageType: string): this {
-        super.init(stripePlanId, interval, price, aggregationMode, usageType);
+    initExampleProduct(name: string, stripePlanId: string): this {
+        super.init(stripePlanId);
         this.name = name;
         return this;
     }

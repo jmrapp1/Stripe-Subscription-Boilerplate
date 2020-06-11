@@ -4,9 +4,9 @@ import StripeProductPlanResource from './StripeProductPlanResource';
 
 export default class StripeProductResource extends Resource {
 
-    stripeProductId: string;
-    charges: StripeBillingChargeResource[];
-    plans: StripeProductPlanResource[];
+    stripeProductId = '';
+    charges: StripeBillingChargeResource[] = [];
+    plans: StripeProductPlanResource[] = [];
 
     init(stripeProductId: string, charges: StripeBillingChargeResource[], plans: StripeProductPlanResource[]) {
         this.stripeProductId = stripeProductId;

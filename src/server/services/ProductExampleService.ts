@@ -6,7 +6,7 @@ import ProductExample from '../models/ProductExample';
 import StripeService from './stripe/StripeService';
 import ServiceResponse from './response/ServiceResponse';
 import { IStripeBillingCycleCharge } from '../models/stripe/StripeBillingCycle';
-import { IStripePlan } from '../models/stripe/StripeSubscriptionProduct';
+import { UserDocument } from '../models/User';
 
 @Service()
 export default class ProductExampleService extends DatabaseService<IProductExampleDocument> {
@@ -24,7 +24,10 @@ export default class ProductExampleService extends DatabaseService<IProductExamp
 
         await this.stripeService.getProduct(stripeProductId);
         for (const plan of plans) {
-            await this.stripeService.getProductPlan(plan.stripePlanId);
+            const stripePlan = (await this.stripeService.getProductPlan(plan.stripePlanId)).data;
+            if (!stripePlan.active) {
+                throw new ServiceResponse(`Plan '${plan.stripePlanId}' is not active and cannot be used.`);
+            }
         }
         return await this.insert({
             name,
@@ -33,6 +36,10 @@ export default class ProductExampleService extends DatabaseService<IProductExamp
             charges,
             plans
         });
+    }
+
+    async createSubscription(productId: string, planId: string, user: UserDocument) {
+
     }
 
 }

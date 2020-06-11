@@ -6,13 +6,14 @@ import 'reflect-metadata'; // required
 import './mixins/underscore';
 import registerPassport from './config/passport';
 
+dotenv.config();
+
 import { createExpressServer, useContainer } from 'routing-controllers';
 import { Container } from 'typedi';
 
 import DatabaseSetup from './util/DatabaseSetup';
 import UserController from './controllers/UserController';
 import Logger from './util/Logger';
-import StripeController from './controllers/stripe/StripeController';
 import ProductController from './controllers/ProductController';
 
 useContainer(Container);
@@ -24,8 +25,6 @@ const app = createExpressServer({
     routePrefix: '/api',
     controllers: [ UserController, ProductController ]
 });
-
-dotenv.load({ path: '.env' });
 
 if (process.env.NODE_ENV === 'production') {
     console.log('Using production build');

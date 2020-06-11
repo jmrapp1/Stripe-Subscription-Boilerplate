@@ -7,12 +7,12 @@ export default class DatabaseSetup {
     db;
 
     setupDb(callback) {
-        dotenv.load({ path: '.env' });
+        dotenv.config();
         this.connectToDb(callback, process.env.MONGODB_URI);
     }
 
     setupTestDb(callback) {
-        dotenv.load({ path: '.env' });
+        dotenv.load();
         this.connectToDb(() => {
         }, process.env.MONGODB_TEST_URI);
     }

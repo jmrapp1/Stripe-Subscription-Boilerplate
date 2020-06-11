@@ -1,8 +1,6 @@
 import * as mongoose from 'mongoose';
 import { StripeBillingChargeSchema, IStripeBillingCycleCharge } from './StripeBillingCycle';
 import { SchemaDefinition } from 'mongoose';
-import StripeBillingChargeResource from '../../../shared/resources/stripe/StripeBillingChargeResource';
-import StripeProductPlanResource from '../../../shared/resources/stripe/StripeProductPlanResource';
 
 const StripePlanSchema = new mongoose.Schema({
     stripePlanId: String,
@@ -34,10 +32,6 @@ export interface IStripeSubProductDocument<P extends IStripePlan> extends mongoo
 
 export interface IStripePlan {
     stripePlanId: string;
-    interval: 'day' | 'week' | 'month' | 'year';
-    price: number;
-    aggregationMode: string;
-    usageType: string;
 }
 
 export function createSubscriptionProductSchema(schema: SchemaDefinition, plansSchema?: SchemaDefinition) {

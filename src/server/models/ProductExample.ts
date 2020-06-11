@@ -1,9 +1,6 @@
 import * as mongoose from 'mongoose';
 import MongooseUtils from '../util/MongooseUtils';
 import StripeSubscriptionProduct, { IStripePlan, IStripeSubProductDocument } from './stripe/StripeSubscriptionProduct';
-import StripeProductPlanResource from '../../shared/resources/stripe/StripeProductPlanResource';
-import ExampleProductPlanResource from '../../shared/resources/product/ExampleProductPlanResource';
-import ExampleProductResource from '../../shared/resources/product/ExampleProductResource';
 
 const planSchema = StripeSubscriptionProduct.createProductPlanSchema({
     name: String

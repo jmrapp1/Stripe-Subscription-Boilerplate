@@ -1,4 +1,4 @@
-import { JsonController, Post, Res, } from 'routing-controllers';
+import { Get, JsonController, Post, Req, Res, UseBefore, } from 'routing-controllers';
 import { BuildResource } from '../decorators/BuildResource';
 import UserRegisterMapper from '../../shared/mappers/user/UserRegisterMapper';
 import UserRegisterResource from '../../shared/resources/user/UserRegisterResource';
@@ -9,6 +9,7 @@ import { Inject } from 'typedi';
 import UserService from '../services/UserService';
 import JwtMapper from '../../shared/mappers/user/JwtMapper';
 import BaseController from './BaseController';
+import OktaAuthMiddleware from '../middlewares/OktaAuthMiddleware';
 
 @JsonController('/user')
 export default class UserController extends BaseController {
@@ -32,6 +33,13 @@ export default class UserController extends BaseController {
             res => response.status(200).json(HttpUtils.mappedResourceToJson(res.data, JwtMapper)),
             err => this.handleServiceError(response, err)
         );
+    }
+
+    @Get('/test')
+    @UseBefore(OktaAuthMiddleware)
+    oktaTest(@Req() req: any, @Res() response: any) {
+        console.log('Pass');
+        return response.sendStatus(200);
     }
 
 }

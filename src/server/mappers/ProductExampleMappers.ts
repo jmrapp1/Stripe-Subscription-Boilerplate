@@ -7,10 +7,10 @@ export function mapPlanResourceToEntity(resource: ExampleProductPlanResource): I
     return {
         name: resource.name,
         stripePlanId: resource.stripePlanId,
-        interval: resource.interval,
-        price: resource.price,
-        aggregationMode: resource.aggregationMode,
-        usageType: resource.usageType
+        // interval: resource.interval,
+        // price: resource.price,
+        // aggregationMode: resource.aggregationMode,
+        // usageType: resource.usageType
     };
 }
 
@@ -18,10 +18,10 @@ export function mapPlanEntityToResource(entity: IPlanExample): ExampleProductPla
     return new ExampleProductPlanResource().initExampleProduct(
         entity.name,
         entity.stripePlanId,
-        entity.interval,
-        entity.price,
-        entity.aggregationMode,
-        entity.usageType
+        // entity.interval,
+        // entity.price,
+        // entity.aggregationMode,
+        // entity.usageType
     );
 }
 
